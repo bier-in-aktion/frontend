@@ -1,0 +1,31 @@
+@use 'sass:map';
+@use '@angular/material' as mat;
+@use '@angular/material-experimental' as matx;
+
+@mixin theme($theme) {
+    p {
+      font: mat.get-theme-typography($theme, body-medium, font);
+      letter-spacing: mat.get-theme-typography($theme, body-medium, letter-spacing);
+      color: mat.get-theme-color($theme, on-surface);
+    }
+    .mat-mdc-card-title {
+      font: mat.get-theme-typography($theme, title-large, font);
+      letter-spacing: mat.get-theme-typography($theme, title-large, letter-spacing);
+      color: mat.get-theme-color($theme, on-surface);
+    }
+    .mat-mdc-card-subtitle {
+      font: mat.get-theme-typography($theme, title-medium, font);
+      letter-spacing: mat.get-theme-typography($theme, title-medium, letter-spacing);
+      color: mat.get-theme-color($theme, on-surface);
+    }
+    @if mat.get-theme-type($theme) == dark {
+        mat-card {
+            background: mat.get-theme-color($theme, surface-container-high);
+        }
+    } @else {
+        mat-card {
+            background: mat.get-theme-color($theme, tertiary, 90);
+        }
+    }
+}
+

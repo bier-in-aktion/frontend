@@ -1,0 +1,148 @@
+/**
+  Mixins
+ */
+ $media-xs: 'screen and (max-width: 599px)';
+ @mixin media-xs {
+   @media #{$media-xs} {
+     @content;
+   }
+ }
+
+ $media-sm: 'screen and (min-width: 599px) and (max-width: 959px)';
+ @mixin media-sm {
+   @media #{$media-sm} {
+     @content;
+   }
+ }
+
+ $media-gt-xs: 'screen and (min-width: 600px)';
+ @mixin media-gt-xs {
+   @media #{$media-gt-xs} {
+     @content;
+   }
+ }
+
+ $media-lt-sm: 'screen and (max-width: 599px)';
+ @mixin media-lt-sm {
+   @media #{$media-lt-sm} {
+     @content;
+   }
+ }
+
+ $media-gt-sm: 'screen and (min-width: 960px)';
+ @mixin media-gt-sm {
+   @media #{$media-gt-sm} {
+     @content;
+   }
+ }
+
+ $media-lt-md: 'screen and (max-width: 959px)';
+ @mixin media-lt-md {
+   @media #{$media-lt-md} {
+     @content;
+   }
+ }
+
+ $media-gt-md: 'screen and (min-width: 1280px)';
+ @mixin media-gt-md {
+   @media #{$media-gt-md} {
+     @content;
+   }
+ }
+
+ $media-gt-xl: 'screen and (min-width: 1920px)';
+ @mixin media-gt-xl {
+   @media #{$media-gt-xl} {
+     @content;
+   }
+ }
+
+ $media-lt-xl: 'screen and (max-width: 1919px)';
+ @mixin media-lt-xl {
+   @media #{$media-lt-xl} {
+     @content;
+   }
+ }
+
+ $media-lt-lg: 'screen and (max-width: 1279px)';
+ @mixin media-lt-lg {
+   @media #{$media-lt-lg} {
+     @content;
+   }
+ }
+
+ $media-gt-lg: 'screen and (min-width: 1280px)';
+ @mixin media-gt-lg {
+   @media #{$media-gt-lg} {
+     @content;
+   }
+ }
+
+
+
+// ##########################
+
+
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1400px
+) !default;
+
+
+@function breakpoint-min($name, $breakpoints: $grid-breakpoints) {
+    $min: map-get($breakpoints, $name);
+    @return if($min != 0, $min, null);
+}
+
+@function breakpoint-max($name, $breakpoints: $grid-breakpoints) {
+    $max: map-get($breakpoints, $name);
+    @return if($max and $max > 0, $max - .02, null);
+}
+
+
+@mixin media-breakpoint-up($name, $breakpoints: $grid-breakpoints) {
+    $min: breakpoint-min($name, $breakpoints);
+    @if $min {
+      @media (min-width: $min) {
+        @content;
+      }
+    } @else {
+      @content;
+    }
+  }
+
+  // Media of at most the maximum breakpoint width. No query for the largest breakpoint.
+  // Makes the @content apply to the given breakpoint and narrower.
+  @mixin media-breakpoint-down($name, $breakpoints: $grid-breakpoints) {
+    $max: breakpoint-max($name, $breakpoints);
+    @if $max {
+      @media (max-width: $max) {
+        @content;
+      }
+    } @else {
+      @content;
+    }
+  }
+
+  @mixin media-breakpoint-between($lower, $upper, $breakpoints: $grid-breakpoints) {
+    $min: breakpoint-min($lower, $breakpoints);
+    $max: breakpoint-max($upper, $breakpoints);
+
+    @if $min != null and $max != null {
+      @media (min-width: $min) and (max-width: $max) {
+        @content;
+      }
+    } @else if $max == null {
+      @include media-breakpoint-up($lower, $breakpoints) {
+        @content;
+      }
+    } @else if $min == null {
+      @include media-breakpoint-down($upper, $breakpoints) {
+        @content;
+      }
+    }
+  }

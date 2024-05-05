@@ -1,0 +1,16 @@
+<mat-toolbar class="background">
+    <div class="container">
+        <img src="assets/img/beer.png" alt="logo" class="logo"/>
+        <span>Bier In Aktion</span>
+    </div>
+    <span class="spacer"></span>
+    <div class="container">
+        <button mat-icon-button (click)="themeService.toggleTheme()">
+            @if (themeService.theme() === 'dark-theme') {
+                <mat-icon>dark_mode</mat-icon>
+            } @else {
+                <mat-icon>light_mode</mat-icon>
+            }
+        </button>
+    </div>
+</mat-toolbar>

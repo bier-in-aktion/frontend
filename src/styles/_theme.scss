@@ -1,0 +1,58 @@
+@use '@angular/material' as mat;
+@use '@angular/material-experimental' as matx;
+
+@use '../app/app.component-theme.scss' as app-component;
+@use '../app/common/component/topbar/topbar.component-theme' as topbar-component;
+@use '../app/page/product/product.component-theme' as product-component;
+@use '../app/page/product/product-card/product-card.component-theme' as product-card-component;
+
+@mixin spread-map($map: ()) {
+    @each $key, $value in $map {
+        #{$key}: $value;
+    }
+}
+
+$m3-dark-theme: matx.define-theme((
+  color: (
+    theme-type: dark,
+    primary: matx.$m3-rose-palette,
+    tertiary: matx.$m3-blue-palette,
+  )
+));
+
+$m3-light-theme: matx.define-theme((
+  color: (
+    primary: matx.$m3-rose-palette,
+    tertiary: matx.$m3-blue-palette,
+  )
+));
+
+$app-map-dark: (
+    --app-background: mat.get-theme-color($m3-dark-theme, surface),
+);
+
+$app-map-light: (
+    --app-background: mat.get-theme-color($m3-light-theme, surface),
+);
+
+.dark-theme {
+    @include mat.all-component-themes($m3-dark-theme);
+
+    @include app-component.theme($m3-dark-theme);
+    @include topbar-component.theme($m3-dark-theme);
+    @include product-component.theme($m3-dark-theme);
+    @include product-card-component.theme($m3-dark-theme);
+
+    @include spread-map($app-map-dark);
+}
+
+.light-theme {
+    @include mat.all-component-themes($m3-light-theme);
+
+    @include app-component.theme($m3-light-theme);
+    @include topbar-component.theme($m3-light-theme);
+    @include product-component.theme($m3-light-theme);
+    @include product-card-component.theme($m3-light-theme);
+
+    @include spread-map($app-map-light);
+}

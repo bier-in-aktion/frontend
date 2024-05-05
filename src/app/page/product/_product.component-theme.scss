@@ -1,0 +1,21 @@
+@use 'sass:map';
+@use '@angular/material' as mat;
+@use '@angular/material-experimental' as matx;
+
+@mixin theme($theme) {
+    h2 {
+        font: mat.get-theme-typography($theme, headline-medium, font);
+        letter-spacing: mat.get-theme-typography($theme, headline-medium, letter-spacing);
+        color: mat.get-theme-color($theme, on-surface);
+    }
+    @if mat.get-theme-type($theme) == dark {
+        .group {
+            background: mat.get-theme-color($theme, surface-container);
+        }
+    } @else {
+        .group {
+            background: mat.get-theme-color($theme, tertiary, 95);
+        }
+    }
+}
+

@@ -1,0 +1,18 @@
+@use 'sass:map';
+@use '@angular/material' as mat;
+@use '@angular/material-experimental' as matx;
+
+@mixin theme($theme) {
+    @if mat.get-theme-type($theme) == dark {
+        .background {
+            background: mat.get-theme-color($theme, primary, 20);
+            color: mat.get-theme-color($theme, primary, 80);
+        }
+    } @else {
+        .background {
+            background: mat.get-theme-color($theme, primary, 90);
+            color: mat.get-theme-color($theme, primary, 20);
+        }
+    }
+}
+

@@ -1,0 +1,28 @@
+@import '../../../styles/mediaq';
+
+.group {
+    border-radius: 12px;
+    padding: .25em 1em 1em 1em;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-content: space-between;
+    gap: 1.5em;
+}
+
+.fab {
+    position: fixed;
+    bottom: 4em;
+    @include media-gt-sm {
+        right: calc(((100vw - 700px) / 2) - 6em);
+    }
+    @include media-lt-md {
+        right: 2em;
+    }
+}
+
+.spacer {
+    height: 3em;
+}
